@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Антон Романов](https://up.htmlacademy.ru/yii/3/user/918779).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Колосов](https://htmlacademy.ru/profile/id1186205).
 
 ---
 
