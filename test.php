@@ -2,9 +2,16 @@
 
 require_once 'classes/Task.php';
 
-$task1 = new Task(1, );
-$task2 = new Task(2, 3);
+$task1 = new Task(1, 2);
 
-assert($task1->getStatus('canceled') == Task::STATUS_CANCELED, 'canceled');
+assert($task1->getMapStatuses()['working'] == 'В работе');
+
+assert($task1->getMapActions()['done'] == 'Выполнено');
+
+assert($task1->getStatusByAction(Task::ACTION_CANCEL) == Task::STATUS_CANCELED);
+
+assert($task1->getAllowedActions(Task::STATUS_NEW,Task::CUSTOMER) == Task::ACTION_CANCEL);
+
+assert($task1->getAllowedActions(Task::STATUS_WORKING,Task::EXECUTOR) == Task::ACTION_REFUSED);
 
 ?>

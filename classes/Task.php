@@ -13,18 +13,32 @@ class Task
     const ACTION_DONE = 'done';
     const ACTION_REFUSED = 'refused';
 
-    const EXECUTOR = 'executor';
-    const CUSTOMER = 'customer';
+    public const CUSTOMER = 'customer';
+    public const EXECUTOR = 'executor';
+
+    public const NEXT_STATUS = [
+        self::ACTION_CANCEL => self::STATUS_CANCELED,
+        self::ACTION_RESPOND => self::STATUS_WORKING,
+        self::ACTION_DONE => self::STATUS_DONE,
+        self::ACTION_REFUSED => self::STATUS_FAILED,
+    ];
+
+    public const ALLOWED_ACTIONS = [
+        self::STATUS_NEW => [
+            self::CUSTOMER => self::ACTION_CANCEL,
+            self::EXECUTOR => self::ACTION_RESPOND,
+        ],
+        self::STATUS_WORKING => [
+            self::CUSTOMER => self::ACTION_DONE,
+            self::EXECUTOR => self::ACTION_REFUSED,
+        ],
+    ];
 
     private $idCustomer;
     private $idExecutor;
 
-    public $currentStatus;
-    public $currentAction;
+    public static $mapStatuses = [
 
-    public static $mapStatuses =
-    
-    [
         self::STATUS_NEW => 'Новое',
         self::STATUS_CANCELED => 'Отменено',
         self::STATUS_WORKING => 'В работе',
@@ -61,49 +75,15 @@ class Task
 
     }
 
-    public function getStatus() {
+    public function getStatusByAction($action) {
 
-        return $this->currentStatus;
-    
+        return self::NEXT_STATUS[$action] ?? '';
+        
     }
 
-    public function getAvailableActions($role) {
+    public function getAllowedActions($status, $role) {
 
-        if ($role === CUSTOMER) {
-
-            if ($this->currentStatus === STATUS_NEW) {
-            
-                return self::ACTION_CANCEL;
-            
-            }
-            
-            if ($this->currentStatus === STATUS_WORKING) {
-            
-                return self::ACTION_DONE;
-            
-            }
-            
-            return null;
-        }
-
-        if ($role === EXECUTOR) {
-        
-            if ($this->currentStatus === STATUS_NEW) {
-        
-                return self::ACTION_RESPOND;
-            
-            }
-        
-            if ($this->currentStatus === STATUS_WORKING) {
-        
-                return self::ACTION_REFUSED;
-     
-            }
-     
-            return null;
-     
-        }
-    
+        return self::ALLOWED_ACTIONS[$status][$role] ?? '';
     }
 
 }
