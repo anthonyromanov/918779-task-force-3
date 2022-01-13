@@ -34,8 +34,7 @@ class Task
         ],
     ];
 
-    private $idCustomer;
-    private $idExecutor;
+    private $idUser;
 
     public static $mapStatuses = [
 
@@ -56,22 +55,34 @@ class Task
     
     ];
 
+    private function setIdCustomer ($idUser) {
+
+        $this->idCustomer = $idUser;
+
+    }
+
+    private function setIdExecutor ($idUser) {
+
+        $this->idExecutor = $idUser;
+
+    }
+
     public function __construct($idExecutor, $idCustomer = null) {
         
-        $this->idCustomer = $idCustomer;
-        $this->idExecutor = $idExecutor;
+        $this->setIdCustomer($idCustomer);
+        $this->setIdExecutor($idExecutor);
     
     }
 
     public static function getMapStatuses() {
     
-        return $mapStatuses;
+        return self::$mapStatuses;
     
     }
 
     public static function getMapActions() {
         
-        return $mapActions;
+        return self::$mapActions;
 
     }
 
@@ -81,9 +92,9 @@ class Task
         
     }
 
-    public function getAllowedActions($status, $role) {
+    public function getAllowedAction($status, $role) {
 
-        return self::ALLOWED_ACTIONS[$status][$role] ?? '';
+        return self::ALLOWED_ACTIONS[$status][$role] ?? [];
     }
 
 }
