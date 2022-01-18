@@ -47,7 +47,7 @@ CREATE TABLE task (
   lng DECIMAL(10, 8),
   user_id INT NOT NULL,
   category_id INT NOT NULL,
-  status ENUM('new', 'camceled', 'working', 'done', 'failed'),
+  status ENUM('new', 'canceled', 'working', 'done', 'failed'),
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (category_id) REFERENCES category(id),
   FOREIGN KEY (city_id) REFERENCES city(id)
