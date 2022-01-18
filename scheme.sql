@@ -23,8 +23,10 @@ CREATE TABLE user (
   characteristic TEXT,
   city_id INT NOT NULL,
   specialty VARCHAR(255),
+  role ENUM('customer', 'executor'),
+  token TEXT,
   password CHAR(255) NOT NULL,
-  FOREIGN KEY (city_id) REFERENCES city(id),
+  FOREIGN KEY (city_id) REFERENCES city(id)
 );  
 
 CREATE TABLE category (
@@ -38,14 +40,14 @@ CREATE TABLE task (
   creation DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
   title VARCHAR(255) NOT NULL,
   description TEXT NOT NULL,
-  estimate INT NOT NULL,
-  runtime DATE NOT NULL,
+  estimate INT,
+  runtime DATE,
   city_id INT NOT NULL,
-  lat DECIMAL(10, 8) NOT NULL,
-  lng DECIMAL(10, 8) NOT NULL,
+  lat DECIMAL(10, 8),
+  lng DECIMAL(10, 8),
   user_id INT NOT NULL,
   category_id INT NOT NULL,
-  task_status VARCHAR(128) NOT NULL,
+  status ENUM('new', 'camceled', 'working', 'done', 'failed'),
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (category_id) REFERENCES category(id),
   FOREIGN KEY (city_id) REFERENCES city(id)
@@ -75,6 +77,6 @@ CREATE TABLE review (
   comment TEXT NOT NULL,
   stats INT NOT NULL,
   FOREIGN KEY (user_id) REFERENCES user(id),
-  FOREIGN KEY (task_id) REFERENCES task(id),
+  FOREIGN KEY (task_id) REFERENCES task(id)
 );
   
