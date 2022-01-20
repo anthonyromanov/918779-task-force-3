@@ -4,6 +4,8 @@ namespace  Taskforce;
 
 class RefusedAction extends DefaultAction {
 
+    public const ACTION_REFUSED = 'refused';
+
     public function getTitle() {
 
         return 'Отказаться от задания';
@@ -16,11 +18,11 @@ class RefusedAction extends DefaultAction {
 
     }
 
-    public function checkRights($idCustomer, $idExcutor): bool
+    public function checkRights($idExecutor, $idCustomer): bool
 
     {
 
-        return $idUser === $idExecutor;
+        return $this->$idUser === $idExecutor;
 
     }
 

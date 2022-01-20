@@ -4,6 +4,8 @@ namespace  Taskforce;
 
 class DoneAction extends DefaultAction {
 
+    public const ACTION_DONE = 'done';
+
     public function getTitle() {
 
         return 'Выполнено';
@@ -16,11 +18,11 @@ class DoneAction extends DefaultAction {
 
     }
 
-    public function checkRights($idCustomer, $idExcutor): bool
+    public function checkRights($idExecutor, $idCustomer): bool
 
     {
 
-        return $idUser === $idCustomer;
+        return $this->$idUser === $idCustomer;
 
     }
 

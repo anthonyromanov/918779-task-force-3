@@ -4,6 +4,8 @@ namespace  Taskforce;
 
 class CancelAction extends DefaultAction {
 
+    public const ACTION_CANCEL = 'cancel';
+
     public function getTitle() {
 
         return 'Отменить задание';
@@ -16,7 +18,7 @@ class CancelAction extends DefaultAction {
 
     }
 
-    public function checkRights($idCustomer, $idExecutor): bool
+    public function checkRights($idExecutor, $idCustomer): bool
 
     {
 

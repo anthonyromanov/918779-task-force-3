@@ -4,20 +4,15 @@ namespace  Taskforce;
 
 abstract class DefaultAction {
 
-    const ACTION_CANCEL = 'cancel';
-    const ACTION_RESPOND = 'respond';
-    const ACTION_DONE = 'done';
-    const ACTION_REFUSED = 'refused';
-
     private $idUser;
 
-    private function setIdCustomer ($idUser) {
+    private function setIdCustomer ($idUser, $idCustomer) {
 
         $this->idCustomer = $idUser;
 
     }
 
-    private function setIdExecutor ($idUser) {
+    private function setIdExecutor ($idUser, $idExecutor) {
 
         $this->idExecutor = $idUser;
 

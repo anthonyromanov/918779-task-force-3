@@ -4,6 +4,8 @@ namespace  Taskforce;
 
 class RespondAction extends DefaultAction {
 
+    public const ACTION_RESPOND = 'respond';
+
     public function getTitle() {
 
         return 'Откликнуться на задание';
@@ -16,11 +18,11 @@ class RespondAction extends DefaultAction {
 
     }
 
-    public function checkRights($idCustomer, $idExcutor): bool
+    public function checkRights($idExecutor, $idCustomer): bool
 
     {
 
-        return $idUser === $idExecutor;
+        return $this->$idUser === $idExecutor;
 
     }
 
