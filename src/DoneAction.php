@@ -18,11 +18,11 @@ class DoneAction extends DefaultAction {
 
     }
 
-    public function checkRights($idExecutor, $idCustomer): bool
+    public function checkRights($idExecutor, $idCustomer)
 
     {
 
-        return $this->$idUser === $idCustomer;
+        return $this->idUser === $this->idCustomer;
 
     }
 

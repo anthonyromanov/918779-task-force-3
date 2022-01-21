@@ -18,11 +18,11 @@ class RefusedAction extends DefaultAction {
 
     }
 
-    public function checkRights($idExecutor, $idCustomer): bool
+    public function checkRights($idExecutor, $idCustomer)
 
     {
 
-        return $this->$idUser === $idExecutor;
+        return $this->idUser === $this->idExecutor;
 
     }
 

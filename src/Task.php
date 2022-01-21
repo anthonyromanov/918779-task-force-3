@@ -2,8 +2,6 @@
 
 namespace  Taskforce;
 
-use Taskforce\DoneAction;
-
 class Task
 {
     const STATUS_NEW = 'new';
@@ -85,7 +83,7 @@ class Task
 
     }
 
-    public function getStatusByAction($action): ?string {
+    public function getStatusByAction($action) {
 
         return self::NEXT_STATUS[$action->getInternalName()] ?? '';
 
