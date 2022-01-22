@@ -8,7 +8,7 @@ abstract class DefaultAction {
 
     public function __construct($idExecutor, $idCustomer = null) {
 
-        $this->idExecutor = $idExecuror;
+        $this->idExecutor = $idExecutor;
         $this->idCustomer = $idCustomer;
 
     }
