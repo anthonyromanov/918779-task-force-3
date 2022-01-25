@@ -18,11 +18,9 @@ class RespondAction extends DefaultAction {
 
     }
 
-    public function checkRights($idExecutor, $idCustomer)
-
-    {
-
-        return $this->idUser === $this->idExecutor;
+    public function checkRights(int $idUser):bool { 
+        
+        return $this->idExecutor === $idUser;
 
     }
 
