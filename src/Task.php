@@ -1,6 +1,7 @@
 <?php
 
 namespace  Taskforce;
+use Taskforce\Exceptions\CustomException;
 
 class Task
 {
@@ -31,27 +32,6 @@ class Task
         ],
     ];
 
-    private $idUser;
-
-    private function setIdCustomer ($idUser) {
-
-        $this->idCustomer = $idUser;
-
-    }
-
-    private function setIdExecutor ($idUser) {
-
-        $this->idExecutor = $idUser;
-
-    }
-
-    public function __construct($idExecutor, $idCustomer = null) {
-
-        $this->setIdCustomer($idCustomer);
-        $this->setIdExecutor($idExecutor);
-
-    }
-
     public static $mapStatuses = [
 
         self::STATUS_NEW => 'Новое',
@@ -71,27 +51,55 @@ class Task
 
     ];
 
-    public static function getMapStatuses() {
+    private $idUser;
+
+    private function setIdCustomer ($idUser) {
+
+        $this->idCustomer = $idUser;
+
+    }
+
+    private function setIdExecutor ($idUser) {
+
+        $this->idExecutor = $idUser;
+
+    }
+
+    public function __construct(int $idExecutor, int $idCustomer = null) {
+
+        $this->setIdCustomer($idCustomer);
+        $this->setIdExecutor($idExecutor);
+
+    }
+
+    public static function getMapStatuses(): array {
 
         return self::$mapStatuses;
 
     }
 
-    public static function getMapActions() {
+    public static function getMapActions(): array {
 
         return self::$mapActions;
 
     }
 
-    public function getStatusByAction($action) {
+    public function getStatusByAction(string $action) {
 
         return self::NEXT_STATUS[$action->getInternalName()] ?? '';
 
     }
 
-    public function getAllowedAction($status, $action) {
+    public function getAllowedAction(string $status, string $action) {
+
+        if ($status !== STATUS_NEW && $status !== STATUS_WORKING) {
+
+        throw new CustomException ('Нет доступных действий для этого статуса');
+
+        }
 
         return self::ALLOWED_ACTIONS[$status][$action->checkRights()] ?? [];
+
     }
 
 }
