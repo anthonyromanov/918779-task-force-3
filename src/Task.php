@@ -1,7 +1,7 @@
 <?php
 
 namespace  Taskforce;
-use Taskforce\Exceptions\CustomException;
+use Taskforce\Exceptions\NoAvailableActionsException;
 
 class Task
 {
@@ -92,14 +92,16 @@ class Task
 
     public function getAllowedAction(string $status, string $action) {
 
-        if ($status !== STATUS_NEW && $status !== STATUS_WORKING) {
+        $result = self::ALLOWED_ACTIONS[$status][$action->checkRights()] ?? [];
 
-        throw new CustomException ('Нет доступных действий для этого статуса');
-
-        }
-
-        return self::ALLOWED_ACTIONS[$status][$action->checkRights()] ?? [];
-
+        if (empty($result))  {
+    
+            throw new NoAvailableActionsException();
+        
+        };
+        
+        return $result;
+       
     }
 
 }

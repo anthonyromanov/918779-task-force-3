@@ -10,7 +10,7 @@ try {
 
     assert($task->getAllowedAction(Task::STATUS_NEW,Task::CancelAction) == Task::ACTION_CANCEL);
 
-} catch (CustomException $e) {
+} catch (NoAvailableActionsException $e) {
 
     echo $e->getMessage();
     
@@ -20,7 +20,7 @@ try {
 
     var_dump($task);
 
-} catch (CustomException $e) {
+} catch (NoAvailableActionsException $e) {
 
     echo $e->getMessage();
 
