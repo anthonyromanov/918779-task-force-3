@@ -2,7 +2,7 @@
 
 namespace Taskforce\Exceptions;
 
-class CustomException extends \Exception {
+class NoAvailableActionsException extends \Exception {
 
 }
 
