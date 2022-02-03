@@ -45,6 +45,8 @@ CREATE TABLE task (
   estimate INT,
   runtime DATE,
   city_id INT NOT NULL,
+  lat DECIMAL(10, 8),
+  lng DECIMAL(10, 8),
   user_id INT NOT NULL,
   category_id INT NOT NULL,
   status ENUM('new', 'canceled', 'working', 'done', 'failed'),
