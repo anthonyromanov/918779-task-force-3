@@ -7,7 +7,9 @@ USE taskforce;
 
 CREATE TABLE city (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  title VARCHAR(255) NOT NULL
+  name VARCHAR(255) NOT NULL,
+  lat DECIMAL(10, 8),
+  lng DECIMAL(10, 8)
 );
 
 CREATE TABLE user (
@@ -31,8 +33,8 @@ CREATE TABLE user (
 
 CREATE TABLE category (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-  code VARCHAR(128) NOT NULL UNIQUE,
-  title VARCHAR(128) NOT NULL
+  icon VARCHAR(128) NOT NULL UNIQUE,
+  name VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE task (
@@ -79,4 +81,3 @@ CREATE TABLE review (
   FOREIGN KEY (user_id) REFERENCES user(id),
   FOREIGN KEY (task_id) REFERENCES task(id)
 );
-  
