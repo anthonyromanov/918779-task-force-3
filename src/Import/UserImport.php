@@ -7,20 +7,14 @@ use Taskforce\Exceptions\SourceFileException;
 use SplFileObject;
 use RuntimeException;
 
-class UserImport {
+class UserImport extends BasicImport {
 
     private $columns = [];
     private $fileObject;
     private $result = [];
     private $error = null;
 
-    /**
-     * UserImport constructor.
-     * @param $filename - Путь к файлу csv
-     */
-    public function __construct(string $filename) {
-        $this->filename = $filename;        
-    }
+    public $filename;
 
     public function import():void {
         if (!file_exists($this->filename)) {
@@ -53,9 +47,9 @@ class UserImport {
 
         $rows = $this->result;
 
-        foreach ($rows as $row) {            
-            $template = sprintf("INSERT INTO (%s) VALUES (%s); \n", $this->getColumnNames(), $this->toSQLRows($row));
-            $templates .= $template;            
+        foreach ($rows as $row) {
+            $template = sprintf("INSERT INTO %s (%s) VALUES (%s);\n", $basename, $this->getColumnNames(), $this->toSQLRow($row));
+            $templates .= $template;
         }
 
         $sqlfile = sprintf("%s/%s.sql", $dirname, $basename);
@@ -63,12 +57,12 @@ class UserImport {
         if (!file_put_contents($sqlfile, $templates)) {
             throw new SourceFileException("Не удалось экспортировать данные в файл");
         }
-  
+
     }
 
     private function getHeaderData():?array {
         $this->fileObject->rewind();
-        $data = $this->fileObject->fgetcsv();       
+        $data = $this->fileObject->fgetcsv();
         return $data;
     }
 
@@ -88,9 +82,17 @@ class UserImport {
         return $row;
     }
 
-    public function toSQLRows(array $row):string {
-        $row = implode(", ", $row);   
+    public function toSQLRow(array $row):string {
+
+        $row = array_map (function ($row) {
+         return "'{$row}'";
+        },
+
+        $row);
+
+        $row = implode(", ", $row);
         return $row;
     }
+
 }
 ?>
