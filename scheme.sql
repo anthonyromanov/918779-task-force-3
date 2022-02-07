@@ -8,8 +8,9 @@ USE taskforce;
 CREATE TABLE city (
   id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
   name VARCHAR(255) NOT NULL,
-  lat DECIMAL(10, 8),
-  lng DECIMAL(10, 8)
+  lat DECIMAL(13, 10),
+  lng DECIMAL(13, 10)
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 );
 
 CREATE TABLE user (
@@ -45,8 +46,8 @@ CREATE TABLE task (
   estimate INT,
   runtime DATE,
   city_id INT NOT NULL,
-  lat DECIMAL(10, 8),
-  lng DECIMAL(10, 8),
+  lat DECIMAL(13, 10),
+  lng DECIMAL(13, 10),
   user_id INT NOT NULL,
   category_id INT NOT NULL,
   status ENUM('new', 'canceled', 'working', 'done', 'failed'),

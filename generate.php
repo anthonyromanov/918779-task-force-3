@@ -2,25 +2,22 @@
 
 use Taskforce\Exceptions\FileFormatException;
 use Taskforce\Exceptions\SourceFileException;
-use Taskforce\Import\CategoryImport;
+
+use Taskforce\Import\FileImport;
 use Taskforce\Import\CityImport;
-use Taskforce\Import\UserImport;
-use Taskforce\Import\TaskImport;
-use Taskforce\Import\AttachmentImport;
-use Taskforce\Import\ResponseImport;
-use Taskforce\Import\ReviewImport;
 
 require_once "vendor/autoload.php";
 
 try {
-    $dataImporter = new CategoryImport('./data/category.csv');
+    $dataImporter = new FileImport('./data/category.csv');
     $dataImporter->import();
     $dataImporter->writeDb('./data');
-} 
+}
 
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
-} 
+}
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
@@ -30,81 +27,85 @@ try {
     $dataImporter = new CityImport('./data/city.csv');
     $dataImporter->import();
     $dataImporter->writeDb('./data');
-} 
+}
 
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
-} 
+}
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 };
 
 try {
-    $dataImporter = new UserImport('./data/user.csv');
+    $dataImporter = new FileImport('./data/user.csv');
     $dataImporter->import();
     $dataImporter->writeDb('./data');
-} 
+}
 
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
-} 
+}
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 };
 
 try {
-    $dataImporter = new TaskImport('./data/task.csv');
+    $dataImporter = new FileImport('./data/task.csv');
     $dataImporter->import();
     $dataImporter->writeDb('./data');
-} 
+}
 
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
-} 
+}
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 };
 
 try {
-    $dataImporter = new AttachmentImport('./data/attachment.csv');
+    $dataImporter = new FileImport('./data/attachment.csv');
     $dataImporter->import();
     $dataImporter->writeDb('./data');
-} 
+}
 
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
-} 
+}
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 };
 
 try {
-    $dataImporter = new ResponseImport('./data/response.csv');
+    $dataImporter = new FileImport('./data/response.csv');
     $dataImporter->import();
     $dataImporter->writeDb('./data');
-} 
+}
 
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
-} 
+}
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 };
 
 try {
-    $dataImporter = new ReviewImport('./data/review.csv');
+    $dataImporter = new FileImport('./data/review.csv');
     $dataImporter->import();
     $dataImporter->writeDb('./data');
-} 
+}
 
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
-} 
+}
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
