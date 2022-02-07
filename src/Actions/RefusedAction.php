@@ -1,20 +1,20 @@
 <?php
 
-namespace  Taskforce;
+namespace Taskforce\Actions;
 
-class RespondAction extends DefaultAction {
+class RefusedAction extends DefaultAction {
 
-    public const ACTION_RESPOND = 'respond';
+    public const ACTION_REFUSED = 'refused';
 
     public function getTitle() {
 
-        return 'Откликнуться на задание';
+        return 'Отказаться от задания';
 
     }
 
     public function getInternalName() {
 
-        return self::ACTION_RESPOND;
+        return self::ACTION_REFUSED;
 
     }
 

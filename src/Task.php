@@ -2,6 +2,10 @@
 
 namespace  Taskforce;
 use Taskforce\Exceptions\NoAvailableActionsException;
+use Taskforce\Actions\CancelAction;
+use Taskforce\Actions\RespondAction;
+use Taskforce\Actions\DoneAction;
+use Taskforce\Actions\RefusedAction;
 
 class Task
 {
