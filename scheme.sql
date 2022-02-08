@@ -10,6 +10,7 @@ CREATE TABLE city (
   name VARCHAR(255) NOT NULL,
   lat DECIMAL(13, 10),
   lng DECIMAL(13, 10)
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 );
 
 CREATE TABLE user (

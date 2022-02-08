@@ -21,6 +21,7 @@ abstract class BasicImport {
      */
 
     public function __construct(string $filename) {
+
         $this->filename = $filename;
     }
 

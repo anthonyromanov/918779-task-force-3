@@ -2,6 +2,7 @@
 
 use Taskforce\Exceptions\FileFormatException;
 use Taskforce\Exceptions\SourceFileException;
+
 use Taskforce\Import\FileImport;
 use Taskforce\Import\CityImport;
 
@@ -16,6 +17,7 @@ try {
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 }
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
@@ -30,6 +32,7 @@ try {
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 }
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
@@ -44,6 +47,7 @@ try {
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 }
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
@@ -58,6 +62,7 @@ try {
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 }
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
@@ -100,6 +105,7 @@ try {
 catch (SourceFileException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
 }
+>>>>>>> 124f6a18968de8d842ad71b5f7521e4ccd86ab08
 
 catch (FileFormatException $e) {
     echo("Не удалось обработать csv файл: " .$e->getMessage());
