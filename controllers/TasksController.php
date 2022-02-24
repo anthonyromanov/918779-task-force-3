@@ -16,10 +16,13 @@ use app\models\City;
 
 class TasksController extends Controller
 {
-   public function actionIndex()
-   {
+
+   const STATUS_NEW = 'new';
+
+   public function actionIndex() {
+
       $tasks = Task::find()
-      ->where(['status' => 'new'])
+      ->where(['status' => self::STATUS_NEW])
       ->joinWith(['category', 'city'])
       ->orderBy(['creation' => SORT_DESC])
       ->all();
