@@ -1,10 +1,13 @@
 <?php
 
-   $this->title = 'Задания';
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+
+$this->title = 'Задания';
+
 ?>
    <div class="left-column">
       <h3 class="head-main head-task">Новые задания</h3>
-      <?php if (count($tasks) > 0): ?>
          <?php foreach ($tasks as $task): ?>
          <div class="task-card">
             <div class="header-task">
@@ -25,13 +28,18 @@
                <?= $task->description ?>
             </p>
             <div class="footer-task">
-                <p class="info-text town-text"><?= $task->city->name ?></p>
+               <p class="info-text town-text">
+               <?php if (isset($task->city->name)): ?>
+                   <?= $task->city->name ?>
+               <?php else: ?>
+                  Удаленная работа
+               <?php endif; ?>
+               </p>
                 <p class="info-text category-text"><?= $task->category->name ?></p>
                 <a href="#" class="button button--black">Смотреть Задание</a>
             </div>
         </div>
         <?php endforeach; ?>
-        <?php endif; ?>
 
         <div class="pagination-wrapper">
             <ul class="pagination-list">
@@ -56,35 +64,31 @@
     <div class="right-column">
        <div class="right-card black">
            <div class="search-form">
-                <form>
+           <?php $form = ActiveForm::begin([
+                'id' => 'search-form',
+                'fieldConfig' => [
+                    'template' => "{input}\n{label}",
+                    'options' => ['class' => 'form-group'],
+                    'labelOptions' => ['class' => 'control-label']
+                ]
+            ]); ?>
                     <h4 class="head-card">Категории</h4>
                     <div class="form-group">
-                        <div>
-                            <input type="checkbox" id="сourier-services" checked>
-                            <label class="control-label" for="сourier-services">Курьерские услуги</label>
-                            <input id="cargo-transportation" type="checkbox">
-                            <label class="control-label" for="cargo-transportation">Грузоперевозки</label>
-                            <input id="translations" type="checkbox">
-                            <label class="control-label" for="translations">Переводы</label>
-                        </div>
+                    <?php foreach ($categories as $category): ?>
+                       <?= $form->field($model, 'categories[]')->checkbox($options = ['value' => $category->id,'checked'=> in_array($category->id, $model->categories)], $enclosedByLabel = false)->label($category->name) ?>
+                       <?php endforeach; ?>
                     </div>
                     <h4 class="head-card">Дополнительно</h4>
                     <div class="form-group">
-                        <input id="without-performer" type="checkbox" checked>
-                        <label class="control-label" for="without-performer">Без исполнителя</label>
+                    <?= $form->field($model, 'remoteWork')->checkbox($options = ['value' => 1, 'checked'=> false], $enclosedByLabel = false)->label('Удаленная работа') ?>
+                    <?= $form->field($model, 'noResponse')->checkbox($options = ['value' => 1, 'checked'=> false], $enclosedByLabel = false)->label('Без откликов') ?>
                     </div>
                     <h4 class="head-card">Период</h4>
                     <div class="form-group">
-                        <label for="period-value"></label>
-                        <select id="period-value">
-                            <option>1 час</option>
-                            <option>12 часов</option>
-                            <option>24 часа</option>
-                        </select>
+                    <?= $form->field($model, 'period', ['template' => "{input}"])->dropDownList($period_values, ['id' => 'period-value']) ?>
                     </div>
-                    <input type="button" class="button button--blue" value="Искать">
-                </form>
+                    <?= Html::submitButton('Искать', ['class' => 'button button--blue']) ?>
+                    <?php ActiveForm::end() ?>
            </div>
        </div>
     </div>
-

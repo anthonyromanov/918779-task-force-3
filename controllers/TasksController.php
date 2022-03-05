@@ -3,30 +3,58 @@
 namespace app\controllers;
 
 use Yii;
-use yii\filters\AccessControl;
+
 use yii\web\Controller;
-use yii\web\Response;
-use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
 
 use app\models\Task;
 use app\models\Category;
 use app\models\City;
+use app\models\TaskFilterForm;
+use app\models\Response;
+use yii\db\Expression;
 
-class TasksController extends Controller
-{
+class TasksController extends Controller {
 
-   const STATUS_NEW = 'new';
+    const STATUS_NEW = 'new';
 
-   public function actionIndex() {
 
-      $tasks = Task::find()
-      ->where(['status' => self::STATUS_NEW])
-      ->joinWith(['category', 'city'])
-      ->orderBy(['creation' => SORT_DESC])
-      ->all();
 
-      return $this->render('index', ['tasks' => $tasks]);
-   }
+    public function actionIndex()
+    {
+        $filter = new TaskFilterForm();
+
+        if (Yii::$app->request->post()) {
+            $filter->load(Yii::$app->request->post());
+        }
+
+        $task = Task::find()
+        ->where(['status' => self::STATUS_NEW])
+        ->joinWith(['category', 'city'])
+        ->andWhere(['category_id' => $filter->categories]);
+
+        if ($filter->remoteWork == 1) {
+        $task->andWhere(['city_id' => null]);
+        }
+        if ($filter->noResponse == 1) {
+        $task->andWhere(['status' => null]);
+        }
+
+        settype($filter->period, 'integer');
+        if ($filter->period > 0) {
+            $expression = new Expression("DATE_SUB(NOW(), INTERVAL {$filter->period} HOUR)");
+            $task->andWhere(['>', 'creation', $expression]);
+        }
+        $task->orderBy(['creation' => SORT_DESC]);
+        $tasks = $task->all();
+
+        $response = Response::find()->all();
+        $categories = Category::find()->all();
+
+        return $this->render('index', [
+            'tasks' => $tasks,
+            'model' => $filter,
+            'categories' => $categories,
+            'period_values' => TaskFilterForm::PERIOD_VALUES
+        ]);
+    }
 }
