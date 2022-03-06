@@ -11,16 +11,16 @@ use app\models\Category;
 use app\models\City;
 use app\models\TaskFilterForm;
 use app\models\Response;
+
 use yii\db\Expression;
+use yii\web\NotFoundHttpException;
 
 class TasksController extends Controller {
 
     const STATUS_NEW = 'new';
 
+    public function actionIndex() {
 
-
-    public function actionIndex()
-    {
         $filter = new TaskFilterForm();
 
         if (Yii::$app->request->post()) {
@@ -35,6 +35,7 @@ class TasksController extends Controller {
         if ($filter->remoteWork == 1) {
         $task->andWhere(['city_id' => null]);
         }
+
         if ($filter->noResponse == 1) {
         $task->andWhere(['status' => null]);
         }
@@ -44,6 +45,7 @@ class TasksController extends Controller {
             $expression = new Expression("DATE_SUB(NOW(), INTERVAL {$filter->period} HOUR)");
             $task->andWhere(['>', 'creation', $expression]);
         }
+
         $task->orderBy(['creation' => SORT_DESC]);
         $tasks = $task->all();
 
@@ -57,4 +59,24 @@ class TasksController extends Controller {
             'period_values' => TaskFilterForm::PERIOD_VALUES
         ]);
     }
+
+    public function actionView ($id) {
+
+        $task = Task::findOne($id);
+        if (!$task) {
+            throw new NotFoundHttpException("Задача с ID $id не найдена");
+        }
+
+        $task->runtime = $task->runtime ? Yii::$app->formatter->asDatetime($task->runtime) : 'Срок не определен';
+
+        $responses = Response::find()
+            ->where(['task_id' => $id])
+            ->all();
+
+        return $this->render('view', [
+            'task' => $task,
+            'responses' => $responses,
+            ]);
+   }
+
 }

@@ -11,32 +11,25 @@ $this->title = 'Задания';
          <?php foreach ($tasks as $task): ?>
          <div class="task-card">
             <div class="header-task">
-               <a  href="#" class="link link--block link--big">
-                  <?= $task->title ?>
+               <a  href="/tasks/view/<?= Html::encode($task->id) ?>" class="link link--block link--big">
+               <?= Html::encode($task->title) ?>
                </a>
-               <p class="price price--task"><?= $task->estimate ?> ₽</p>
+               <p class="price price--task"><?= Html::encode($task->estimate); ?> ₽</p>
             </div>
             <p class="info-text">
-               <span class="current-time">
-                  <?= Yii::$app->formatter->format(
-                     $task->creation,
-                     'relativeTime'
-                  ) ?>
-               </span>
+               <span class="current-time"><?= Yii::$app->formatter->asRelativeTime($task->creation); ?></span>
             </p>
-            <p class="task-text">
-               <?= $task->description ?>
-            </p>
+            <p class="task-text"><?= Html::encode($task->description); ?></p>
             <div class="footer-task">
                <p class="info-text town-text">
                <?php if (isset($task->city->name)): ?>
-                   <?= $task->city->name ?>
+                <?= Html::encode($task->city->name); ?>
                <?php else: ?>
                   Удаленная работа
                <?php endif; ?>
                </p>
-                <p class="info-text category-text"><?= $task->category->name ?></p>
-                <a href="#" class="button button--black">Смотреть Задание</a>
+               <p class="info-text category-text"><?= Html::encode($task->category->name); ?></p>
+                <a href="/tasks/view/<?= Html::encode($task->id); ?>" class="button button--black">Смотреть Задание</a>
             </div>
         </div>
         <?php endforeach; ?>
@@ -67,9 +60,7 @@ $this->title = 'Задания';
            <?php $form = ActiveForm::begin([
                 'id' => 'search-form',
                 'fieldConfig' => [
-                    'template' => "{input}\n{label}",
-                    'options' => ['class' => 'form-group'],
-                    'labelOptions' => ['class' => 'control-label']
+                    'template' => "{input}\n{label}"
                 ]
             ]); ?>
                     <h4 class="head-card">Категории</h4>
